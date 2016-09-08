@@ -3,4 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="clear_blue">#58A7B0</color>
+    <color name="pink">#C800c5</color>
+    <color name="dark_blue">#090979</color>
 </resources>
