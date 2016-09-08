@@ -1,5 +1,6 @@
 package com.example.rmartin.avisos;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,20 +16,50 @@ import android.widget.ListView;
 public class AvisosActivity extends AppCompatActivity {
 
     private ListView mListView;
+    private AvisosDBAdapter mAvisosDBAdapter;
+    private AvisosSimpleCursorAdapter mCursorAdapter;
+    private AvisosDBAdapter mDbAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avisos);
         mListView = (ListView) findViewById(R.id.avisos_list_view);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                this,
-                R.layout.avisos_row,
-                R.id.row_text,
-                new String[]{"first Record", "second record", "third Record"}
-        );
+        findViewById(R.id.avisos_list_view);
+        mListView.setDivider(null);
+        mDbAdapter = new AvisosDBAdapter(this);
+        mDbAdapter.open();
 
-        mListView.setAdapter(arrayAdapter);
+        // DB Default
+        if(savedInstanceState == null){
+            mDbAdapter.deleteAllReminders();
+            mDbAdapter.createReminder("Visitar el Centro de Recogida", true);
+            mDbAdapter.createReminder("Enviar los regalos prometidos", false);
+            mDbAdapter.createReminder("Hacer la compra semanal", false);
+            mDbAdapter.createReminder("Comprobar el correo", false);
+
+
+        }
+
+        Cursor cursor = mDbAdapter.fetchAllReminders();
+
+        String[] from = new String[]{
+          AvisosDBAdapter.COL_CONTENT
+        };
+
+        int[] to =  new int[]{
+                R.id.row_text
+        };
+
+        mCursorAdapter = new AvisosSimpleCursorAdapter(
+          AvisosActivity.this,
+                R.layout.avisos_row,
+                cursor,
+                from,
+                to,
+                0);
+
+        mListView.setAdapter(mCursorAdapter);
     }
 
     @Override
