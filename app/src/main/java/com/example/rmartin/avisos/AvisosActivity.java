@@ -76,37 +76,29 @@ public class AvisosActivity extends AppCompatActivity {
                 0);
 
         mListView.setAdapter(mCursorAdapter);
-
-        mListView.setOnItemClickListener((masterParent, masterView, masterListPosition, masterId) -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(AvisosActivity.this);
-            ListView modeListView = new ListView(AvisosActivity.this);
-            String[] modes = new String[]{"Editar Aviso", "Borrar Aviso"};
-            ArrayAdapter<String> modeAdapter = new ArrayAdapter<>(AvisosActivity.this,
-                    android.R.layout.simple_list_item_1, android.R.id.text1, modes);
-            modeListView.setAdapter(modeAdapter);
-            builder.setView(modeListView);
-            final Dialog dialog = builder.create();
-            dialog.show();
-
-            modeListView.setOnItemClickListener((parent, view, position, id) -> {
-                //editar aviso
-                if (position == 0) {
-                    Toast.makeText(AvisosActivity.this, "editar " + masterListPosition, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(AvisosActivity.this, "borrar " + masterListPosition, Toast.LENGTH_SHORT).show();
-                }
-                dialog.dismiss();
-            });
-
-        });
-
-
         // cuando pulsamos en un item individual en la listview
-
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(AvisosActivity.this, "pulsado " + position, Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> parent, View view, int masterPosition, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(AvisosActivity.this);
+                ListView modeListView = new ListView(AvisosActivity.this);
+                String[] modes = new String[]{"Editar Aviso", "Borrar Aviso"};
+                ArrayAdapter<String> modeAdapter = new ArrayAdapter<>(AvisosActivity.this,
+                        android.R.layout.simple_list_item_1, android.R.id.text1, modes);
+                modeListView.setAdapter(modeAdapter);
+                builder.setView(modeListView);
+                final Dialog dialog = builder.create();
+                dialog.show();
+                modeListView.setOnItemClickListener((_parent, _view, _position, _id) -> {
+                    //editar aviso
+                    if (_position == 0) {
+                        Toast.makeText(AvisosActivity.this, "editar " + masterPosition, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(AvisosActivity.this, "borrar " + masterPosition, Toast.LENGTH_SHORT).show();
+                    }
+                    dialog.dismiss();
+                });
             }
         });
 
