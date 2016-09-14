@@ -37,11 +37,17 @@ public class AvisosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_avisos);
+
         mListView = (ListView) findViewById(R.id.avisos_list_view);
+
         findViewById(R.id.avisos_list_view);
+
         mListView.setDivider(null);
+
         mDbAdapter = new AvisosDBAdapter(this);
+
         mDbAdapter.open();
 
         // DB Default
@@ -54,11 +60,12 @@ public class AvisosActivity extends AppCompatActivity {
         }
 
         Cursor cursor = mDbAdapter.fetchAllReminders();
+
         String[] from = new String[]{
                 AvisosDBAdapter.COL_CONTENT
         };
 
-        int[] to = new int[]{ R.id.row_text };
+        int[] to = new int[]{R.id.row_text};
 
         mCursorAdapter = new AvisosSimpleCursorAdapter(
                 AvisosActivity.this,
@@ -96,16 +103,13 @@ public class AvisosActivity extends AppCompatActivity {
 
         // cuando pulsamos en un item individual en la listview
 
-         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(AvisosActivity.this, "pulsado "+position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AvisosActivity.this, "pulsado " + position, Toast.LENGTH_SHORT).show();
             }
         });
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        // mClient = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -134,46 +138,10 @@ public class AvisosActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        // mClient.connect();
-        /**
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Avisos Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.example.rmartin.avisos/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(mClient, viewAction);
-
-       **/
     }
 
     @Override
     public void onStop() {
         super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        /**
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Avisos Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.example.rmartin.avisos/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(mClient, viewAction);
-        mClient.disconnect();
-        **/
-
     }
 }
